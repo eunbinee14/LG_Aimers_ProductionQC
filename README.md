@@ -14,13 +14,14 @@
 - 잘못된 데이터 조정
 - INt형만 선정(for문)
 
-  </br></br>
-  ## 2. Data Split
-  - train, validation : 8:2
- 
-  </br></br>
-  ## 3. Hyper Parameter Tuning
-  - Optuna 파라미터 이용
+</br></br>
+## 2. Data Split
+- train, validation : 8:2
 
-  ## Output
-  Accuracy : 0.1572
+</br></br>
+## 3. Hyper Parameter Tuning
+- Optuna 파라미터 이용
+
+</br></br>
+## Output
+Accuracy : 0.1572
