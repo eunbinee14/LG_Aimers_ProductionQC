@@ -1,0 +1,31 @@
+def objective(trial):
+# RandomForestClassifier의 하이퍼파라미터를 설정
+n_estimators = trial.suggest_int('n_estimators', 100, 350, step=5)
+max_depth = trial.suggest_int('max_depth', 4, 18)
+min_samples_split = trial.suggest_int('min_samples_split', 2, 10)
+min_samples_leaf = trial.suggest_int('min_samples_leaf', 1, 5)
+max_features = trial.suggest_categorical('max_features', ['log2'])
+max_leaf_nodes = trial.suggest_int('max_leaf_nodes', 10, 1000)
+bootstrap = trial.suggest_categorical('bootstrap',[True,False])
+
+
+# 모델 정의
+clf = RandomForestClassifier(
+    n_estimators=n_estimators,
+    max_depth=max_depth,
+    min_samples_split=min_samples_split,
+    min_samples_leaf=min_samples_leaf,
+    max_features=max_features,
+    max_leaf_nodes=max_leaf_nodes,
+    bootstrap=bootstrap,
+    n_jobs=-1,
+    random_state=RANDOM_STATE
+)
+
+# 교차 검증을 통해 모델 성능 평가
+score = cross_val_score(clf, train_x, train_y, cv=3, scoring='accuracy').mean()
+return score
+
+# Optuna를 사용한 하이퍼파라미터 최적화
+study = optuna.create_study(direction='maximize')
+study.optimize(objective, n_trials=50)
